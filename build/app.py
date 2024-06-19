@@ -7,10 +7,10 @@ import os
 
 app = Flask(__name__)
 startTime = datetime.now()
-R_SERVER = redis.Redis(host=os.environ.get('REDIS_HOST', 'redis'), port=6379)
+R_SERVER = redis.Redis(host=os.environ.get('REDIS_HOST', 'redis_container'), port=6379)
 
 db = MySQLdb.connect(
-    host=os.environ.get('MYSQL_HOST', 'mysql'),
+    host=os.environ.get('MYSQL_HOST', 'mysql_container'),
     user=os.environ.get('MYSQL_USER', 'root'),
     passwd=os.environ.get('MYSQL_PASSWORD', 'root'),
     db=os.environ.get('MYSQL_DATABASE', 'userdb')
