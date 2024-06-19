@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysql:
     image: mysql:latest
-    container_name: mysql
+    container_name: mysql_container
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: userdb
@@ -11,10 +11,11 @@ services:
       - "3306:3306"
     networks:
       - mynetwork
+    command: --default-authentication-plugin=mysql_native_password
 
   redis:
     image: redis:latest
-    container_name: redis
+    container_name: redis_container
     ports:
       - "6379:6379"
     networks:
@@ -22,19 +23,20 @@ services:
 
   web:
     build: .
+    container_name: web_container
     ports:
       - "5000:5000"
     depends_on:
       - redis
       - mysql
     environment:
-      MYSQL_HOST: mysql
+      MYSQL_HOST: mysql_container
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_DATABASE: userdb
     links:
-      - redis:redis
-      - mysql:mysql
+      - redis:redis_container
+      - mysql:mysql_container
     networks:
       - mynetwork
 
