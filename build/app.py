@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, Response, request
 from redis import Redis
 from datetime import datetime
