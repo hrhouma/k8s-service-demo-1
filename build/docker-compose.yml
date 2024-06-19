@@ -5,8 +5,8 @@ services:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Utilisation du mot de passe root
-      MYSQL_DATABASE: userdb  # Nom de la base de données
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: userdb
     ports:
       - "3306:3306"
     networks:
@@ -30,8 +30,8 @@ services:
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
-      MYSQL_PASSWORD: root  # Utilisation du mot de passe root
-      MYSQL_DATABASE: userdb  # Doit correspondre au nom défini dans le service MySQL
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: userdb
     links:
       - redis:redis
       - mysql:mysql
