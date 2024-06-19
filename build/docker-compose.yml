@@ -5,16 +5,20 @@ services:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: haythem  # Mise à jour du mot de passe
-      MYSQL_DATABASE: mydatabase  # Nom de la base de données
+      MYSQL_ROOT_PASSWORD: root  # Utilisation du mot de passe root
+      MYSQL_DATABASE: userdb  # Nom de la base de données
     ports:
       - "3306:3306"
+    networks:
+      - mynetwork
 
   redis:
     image: redis:latest
     container_name: redis
     ports:
       - "6379:6379"
+    networks:
+      - mynetwork
 
   web:
     build: .
@@ -26,9 +30,14 @@ services:
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
-      MYSQL_PASSWORD: haythem  # Mise à jour du mot de passe
-      MYSQL_DATABASE: mydatabase  # Doit correspondre au nom défini dans le service MySQL
+      MYSQL_PASSWORD: root  # Utilisation du mot de passe root
+      MYSQL_DATABASE: userdb  # Doit correspondre au nom défini dans le service MySQL
     links:
       - redis:redis
       - mysql:mysql
+    networks:
+      - mynetwork
 
+networks:
+  mynetwork:
+    driver: bridge
