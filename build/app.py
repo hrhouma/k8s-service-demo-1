@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from flask import Flask, Response, request
 from redis import Redis
 from datetime import datetime
@@ -10,7 +9,6 @@ app = Flask(__name__)
 startTime = datetime.now()
 R_SERVER = redis.Redis(host=os.environ.get('REDIS_HOST', 'redis'), port=6379)
 
-# Connexion à la base de données MySQL en utilisant les variables d'environnement
 db = MySQLdb.connect(
     host=os.environ.get('MYSQL_HOST', 'mysql'),
     user=os.environ.get('MYSQL_USER', 'root'),
@@ -30,11 +28,11 @@ def init():
      )"""
     cursor.execute(sql)
     db.commit()
-    return "DB Init done" 
+    return "DB Init done"
 
 @app.route("/users/add", methods=['POST'])
 def add_users():
-    req_json = request.get_json()   
+    req_json = request.get_json()
     cursor.execute("INSERT INTO USERDB.users (ID, USER) VALUES (%s,%s)", (req_json['uid'], req_json['user']))
     db.commit()
     return Response("Added", status=200, mimetype='application/json')
@@ -43,7 +41,6 @@ def add_users():
 def get_users(uid):
     hash = hashlib.sha224(str(uid).encode('utf-8')).hexdigest()
     key = "sql_cache:" + hash
-    
     if R_SERVER.get(key):
         return R_SERVER.get(key).decode('utf-8') + "(c)"
     else:
