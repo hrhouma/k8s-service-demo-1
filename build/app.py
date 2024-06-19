@@ -1,16 +1,18 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, Response, request
 from redis import Redis
 from datetime import datetime
 import MySQLdb
 import hashlib
 import os
+import sys
 
 app = Flask(__name__)
 startTime = datetime.now()
-R_SERVER = redis.Redis(host=os.environ.get('REDIS_HOST', 'redis_container'), port=6379)
+R_SERVER = Redis(host=os.environ.get('REDIS_HOST', 'redis_container'), port=6379)
 
 db = MySQLdb.connect(
-    host=os.environ.get('MYSQL_HOST', 'mysql_container'),
+    host=os.environ.get('MYSQL_HOST', 'mariadb_container'),
     user=os.environ.get('MYSQL_USER', 'root'),
     passwd=os.environ.get('MYSQL_PASSWORD', 'root'),
     db=os.environ.get('MYSQL_DATABASE', 'userdb')
@@ -52,6 +54,10 @@ def get_users(uid):
             return R_SERVER.get(key).decode('utf-8')
         else:
             return "Record not found"
+
+@app.route('/python-path')
+def python_path():
+    return f"Python executable is located at: {sys.executable}"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
