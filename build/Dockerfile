@@ -1,8 +1,6 @@
-FROM python:2.7-onbuild
+FROM python:3.10-slim
 
-RUN pip install flask
-RUN pip install redis
-RUN pip install mysql-python
+RUN pip install flask redis mysqlclient
 
 COPY . /app
 WORKDIR /app
