@@ -7,6 +7,8 @@ Ce tutoriel vous guidera à travers les étapes pour déployer une application F
 - Minikube installé
 - `kubectl` installé
 
+![Architecture](https://github.com/janakiramm/Kubernetes-multi-container-pod/blob/master/multi-container-pod.png?raw=true)
+
 ## Étapes
 
 ### 1. Installer Minikube et Configurer le Cluster
@@ -25,8 +27,8 @@ kubectl cluster-info
 Clonez le dépôt Git contenant le projet :
 
 ```sh
-git clone https://github.com/gbhure/docker-demo.git
-cd docker-demo/service-demo
+git clone https://github.com/hrhouma/k8s-service-demo-1.git
+cd k8s-service-demo-1/
 ```
 
 ### 3. Construire et Taguer les Images Docker
