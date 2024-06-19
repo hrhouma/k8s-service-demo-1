@@ -1,13 +1,14 @@
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-COPY requirements.txt /app/requirements.txt
 WORKDIR /app
 
-# Installer les dépendances Python et le client MySQL
-RUN apt-get update && apt-get install -y default-mysql-client \
+COPY requirements.txt requirements.txt
+
+# Installer les dépendances Python et le client MariaDB
+RUN apt-get update && apt-get install -y mariadb-client \
     && pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY . .
 
 EXPOSE 5000
 
