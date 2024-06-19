@@ -2,6 +2,8 @@
 
 Ce tutoriel vous guidera à travers les étapes pour déployer une application Flask avec une base de données MySQL et Redis sur un cluster Kubernetes utilisant Kind (Kubernetes in Docker) sur Azure.
 
+![Architecture](https://github.com/janakiramm/Kubernetes-multi-container-pod/blob/master/multi-container-pod.png?raw=true)
+
 ## Prérequis
 - Docker installé
 - Azure CLI installé
