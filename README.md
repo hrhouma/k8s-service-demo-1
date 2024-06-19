@@ -22,6 +22,8 @@ minikube start --driver=docker
 kubectl cluster-info
 ```
 
+
+
 ### 2. Cloner le Projet
 
 Clonez le dépôt Git contenant le projet :
@@ -31,6 +33,14 @@ git clone https://github.com/hrhouma/k8s-service-demo-1.git
 cd k8s-service-demo-1/
 ```
 
+```sh
+sudo apt update
+sudo apt install python3.10
+python3.10 --version
+sudo apt install python3-pip
+pip3 --version
+pip3 install flask redis mysql-python
+```
 ### 3. Construire et Taguer les Images Docker
 
 Construisez les images Docker nécessaires et taguez-les :
