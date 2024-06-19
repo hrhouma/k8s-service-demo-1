@@ -1,15 +1,34 @@
-mysql:
-  image: mysql:latest
-  container_name: mysql
-  environment:
-      MYSQL_ROOT_PASSWORD: password
-redis:
-  image: redis:latest
-  container_name: redis
-web:
-  build: .
-  ports:
-   - "5000:5000"
-  links:
-   - redis:redis
-   - mysql:mysql
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: haythem  # Mise à jour du mot de passe
+      MYSQL_DATABASE: mydatabase  # Nom de la base de données
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: haythem  # Mise à jour du mot de passe
+      MYSQL_DATABASE: mydatabase  # Doit correspondre au nom défini dans le service MySQL
+    links:
+      - redis:redis
+      - mysql:mysql
+
